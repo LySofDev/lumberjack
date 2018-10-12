@@ -1,0 +1,27 @@
+version: '3.2'
+volumes:
+    postgres-data:
+services:
+################################################################################
+# Lumberjack - Rails Server
+################################################################################
+  lumberjack:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: bundle exec rails s
+    depends_on:
+      - db
+    ports:
+      - "8000:3000"
+    volumes:
+      - ./server:/app
+      - type: tmpfs
+        target: /project/tmp/pids
+################################################################################
+# Lumberjack - Postgres Database
+################################################################################
+  db:
+    image: postgres
+    volumes:
+        - postgres-data:/var/lib/postgresql/data
