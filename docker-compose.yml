@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile
     command: bundle exec rails s
     depends_on:
-      - db
+      - database
     ports:
       - "8000:3000"
     volumes:
@@ -21,7 +21,7 @@ services:
 ################################################################################
 # Lumberjack - Postgres Database
 ################################################################################
-  db:
+  database:
     image: postgres
     volumes:
         - postgres-data:/var/lib/postgresql/data
